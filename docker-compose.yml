@@ -1,0 +1,27 @@
+services:
+  chatery:
+    build: .
+    container_name: chatery-api
+    restart: unless-stopped
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DASHBOARD_USERNAME=${DASHBOARD_USERNAME}
+      - DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD}
+      - API_KEY=${API_KEY}
+    volumes:
+      - chatery_sessions:/app/sessions
+      - chatery_media:/app/public/media
+      - chatery_store:/app/store
+    networks:
+      - chatery-network
+
+volumes:
+  chatery_sessions:
+  chatery_media:
+  chatery_store:
+
+networks:
+  chatery-network:
